@@ -8,12 +8,11 @@ public class Analyzer : MonoBehaviour
     AudioSource source;
     public UnityEvent<float> onVolumeChanged;
 
-    void Start()
+    private void Start()
     {
         source = GetComponent<AudioSource>();
     }
-
-    void Update()
+    private void Update()
     {
         var samples = new float[735];
         source.clip.GetData(samples, source.timeSamples);
@@ -23,6 +22,7 @@ public class Analyzer : MonoBehaviour
         {
             sum += Mathf.Abs(sample);
         }
+
         var average = sum / samples.Length;
 
         onVolumeChanged.Invoke(average);
